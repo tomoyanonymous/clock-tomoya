@@ -1,9 +1,11 @@
-var status, timerInterval, currentProgress, currentSec, countSec = 180;
+let state, timerInterval, currentProgress, currentSec, countSec = 180;
+let alert = new Audio("../sounds/alert.wav");
+alert.loop = true;
 
-var urlQueryParam = function(name) {
-  var vars = {};
-  var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-  for (var i = 0; i < hashes.length; i++) {
+let urlQueryParam = function (name) {
+  let vars = {};
+  let hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+  for (let i = 0; i < hashes.length; i++) {
     hash = hashes[i].split('=');
     vars[hash[0]] = hash[1];
   }
@@ -14,8 +16,8 @@ if (!isNaN(urlQueryParam('sec'))) {
   countSec = urlQueryParam('sec');
 }
 
-$(function() {
-  setStatus('off');
+$(function () {
+  setstate('off');
   print(countSec);
 
   $('#button-minus').click(function () {
@@ -34,13 +36,14 @@ $(function() {
 });
 
 function touch() {
-  if (status === 'on') {
-    setStatus('off');
+  if (state === 'on') {
+    setstate('off');
     $('.button').show();
     clearInterval(timerInterval);
+    alert.pause();
     print(countSec);
   } else {
-    setStatus('on');
+    setstate('on');
     $('.button').hide();
     currentSec = countSec;
     timer();
@@ -52,6 +55,7 @@ function timer() {
   if (currentSec <= 0) {
     clearInterval(timerInterval);
     $('#view').addClass('over');
+    alert.play();
   } else {
     currentProgress = Math.round((1 - currentSec / countSec) * 100);
     $('#view').css('background-size', currentProgress + '% 100%');
@@ -61,22 +65,22 @@ function timer() {
 }
 
 function print(sec) {
-  var s = sec % 60;
-  var m = (sec - s) / 60;
-  var time = keepLength(m, 2) + ':' + keepLength(s, 2);
+  let s = sec % 60;
+  let m = (sec - s) / 60;
+  let time = keepLength(m, 2) + ':' + keepLength(s, 2);
   $('#time').html(time);
   document.title = time;
 }
 
-function setStatus(param) {
-  status = param;
+function setstate(param) {
+  state = param;
   $('#view').attr('class', param);
 }
 
 function keepLength(num, figures) {
-  var num = String(num);
-  while (num.length < figures) {
-    num = '0' + num;
+  let numStr = String(num);
+  while (numStr.length < figures) {
+    numStr = '0' + numStr;
   }
-  return num;
+  return numStr;
 }
