@@ -1,4 +1,4 @@
-let state, timerInterval, currentProgress, currentSec, countSec = 180;
+let state, timerInterval, currentProgress, currentSec, countSec = 60*20;
 let alert = new Audio("../sounds/alert.wav");
 alert.loop = true;
 
