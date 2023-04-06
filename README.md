@@ -1,5 +1,12 @@
-# clock.hysysk.org
+# https://tomoyanonymous.github.io/clock-tomoya
 
-https://clock.hysysk.org/
+https://tomoyanonymous.github.io/clock-tomoya
 
-Cool alert sound from https://thewavsite.com/
+adapted from 
+
+https://github.com/tomoyanonymous/clock-tomoya
+
+adapted from 
+
+https://github.com/shikakun/clock.shikakun.com
+
